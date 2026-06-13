@@ -1,0 +1,25 @@
+{
+  "id": 7981,
+  "name": "Simple story",
+  "description": "Detection system alerts",
+  "team_id": 1,
+  "folder_id": 1,
+  "guid": "df1e838a18d20696120b41516497b017",
+  "slug": "simple_story",
+  "published": true,
+  "disabled": false,
+  "priority": false,
+  "keep_events_for": 604800,
+  "tags": ["detection", "alerting"],
+  "mode": "LIVE",
+  "owners": [
+    {
+      "user_id": 5,
+      "email": "jane@example.tines.com",
+      "name": "Jane Doe"
+    }
+  ],
+  "created_at": "2021-05-10T08:56:50Z",
+  "updated_at": "2024-01-15T14:22:11Z",
+  "edited_at": "2024-01-15T14:22:11Z"
+}

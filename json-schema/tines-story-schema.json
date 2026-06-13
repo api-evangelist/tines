@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tines/main/json-schema/tines-story-schema.json",
+  "title": "Tines Story",
+  "description": "A Tines story (automated workflow) resource",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Unique story identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "Story name"
+    },
+    "description": {
+      "type": "string",
+      "description": "User-defined description"
+    },
+    "team_id": {
+      "type": "integer",
+      "description": "ID of the team that owns the story"
+    },
+    "folder_id": {
+      "type": ["integer", "null"],
+      "description": "ID of the folder containing the story"
+    },
+    "guid": {
+      "type": "string",
+      "description": "Globally unique story identifier"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-friendly story identifier"
+    },
+    "published": {
+      "type": "boolean",
+      "description": "Whether the story is published"
+    },
+    "disabled": {
+      "type": "boolean",
+      "description": "Whether the story is disabled",
+      "default": false
+    },
+    "priority": {
+      "type": "boolean",
+      "description": "Whether the story is flagged as high priority",
+      "default": false
+    },
+    "keep_events_for": {
+      "type": "integer",
+      "description": "Event retention period in seconds",
+      "minimum": 3600,
+      "maximum": 31536000
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Tags associated with the story"
+    },
+    "mode": {
+      "type": "string",
+      "description": "Story execution mode"
+    },
+    "owners": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "user_id": { "type": "integer" },
+          "email": { "type": "string", "format": "email" },
+          "name": { "type": "string" }
+        }
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "edited_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": ["id", "team_id"],
+  "additionalProperties": true
+}

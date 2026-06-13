@@ -1,0 +1,241 @@
+vocabulary:
+  provider: tines
+  title: Tines API Vocabulary
+  description: >-
+    Terms, concepts, and domain language used in the Tines no-code security
+    automation platform and its REST API.
+  version: "1.0.0"
+  url: https://www.tines.com/api/welcome/
+
+terms:
+  - term: Story
+    definition: >-
+      A visual, no-code automated workflow in Tines. Stories consist of one or
+      more connected Actions and can be triggered by webhooks, schedules, or
+      manually. Equivalent to a playbook or runbook in SOAR terminology.
+    type: resource
+    endpoints:
+      - GET /api/v1/stories/
+      - POST /api/v1/stories/
+      - GET /api/v1/stories/{id}
+      - PUT /api/v1/stories/{id}
+      - DELETE /api/v1/stories/{id}
+
+  - term: Action
+    definition: >-
+      An individual step within a Story. Actions perform discrete tasks such as
+      sending HTTP requests, transforming events, triggering conditions,
+      sending emails, or running AI models. Actions are connected to form
+      automated workflows.
+    type: resource
+    endpoints:
+      - GET /api/v1/actions
+      - POST /api/v1/actions
+      - GET /api/v1/actions/{id}
+      - PUT /api/v1/actions/{id}
+      - DELETE /api/v1/actions/{id}
+
+  - term: Credential
+    definition: >-
+      A securely stored secret used by Actions to authenticate with external
+      services. Credentials support multiple modes including AWS, TEXT,
+      HTTP_REQUEST_AGENT, JWT, OAUTH2, and MTLS. Access can be scoped to a
+      team, globally, or to specific teams.
+    type: resource
+    endpoints:
+      - GET /api/v1/user_credentials
+      - POST /api/v1/user_credentials
+      - GET /api/v1/user_credentials/{id}
+      - PUT /api/v1/user_credentials/{id}
+      - DELETE /api/v1/user_credentials/{id}
+
+  - term: Team
+    definition: >-
+      An organizational unit in Tines that groups users, stories, credentials,
+      and resources together. API keys can be scoped to a specific team or to
+      the entire tenant.
+    type: resource
+    endpoints:
+      - GET /api/v1/teams/
+      - POST /api/v1/teams/
+      - GET /api/v1/teams/{id}
+      - PUT /api/v1/teams/{id}
+      - DELETE /api/v1/teams/{id}
+
+  - term: Folder
+    definition: >-
+      A container for organizing Stories, Credentials, or Resources within a
+      team. Folders can be nested using the parent_folder_id field. The
+      content_type field specifies what type of resource the folder holds.
+    type: resource
+    endpoints:
+      - GET /api/v1/folders/
+      - POST /api/v1/folders/
+      - GET /api/v1/folders/{id}
+      - PUT /api/v1/folders/{id}
+      - DELETE /api/v1/folders/{id}
+
+  - term: Case
+    definition: >-
+      A security case or incident tracked in the Tines case management system.
+      Cases have priorities (critical, high, medium, low, info), statuses
+      (open, closed), assignees, tasks, blocks, SLAs, and can link to other
+      cases and records.
+    type: resource
+    api_version: v2
+    endpoints:
+      - GET /api/v2/cases/
+      - POST /api/v2/cases/
+      - GET /api/v2/cases/{id}
+      - PUT /api/v2/cases/{id}
+      - DELETE /api/v2/cases/{id}
+
+  - term: AuditLog
+    definition: >-
+      An immutable record of changes made by users within a Tines tenant.
+      Audit logs capture over 400 operation types including story creation,
+      action runs, and configuration changes. Only accessible to tenant
+      administrators.
+    type: resource
+    endpoints:
+      - GET /api/v1/audit_logs
+
+  - term: Tag
+    definition: >-
+      A colored label used to categorize and filter stories and other
+      resources. Tags belong to teams and can be assigned arbitrary colors
+      using named colors or hex values.
+    type: resource
+    endpoints:
+      - GET /api/v1/tags
+      - POST /api/v1/tags
+      - GET /api/v1/tags/{id}
+      - PUT /api/v1/tags/{id}
+      - DELETE /api/v1/tags/{id}
+
+  - term: Webhook
+    definition: >-
+      A special Action type (Agents::WebhookAgent) that exposes an HTTP
+      endpoint to receive inbound events and trigger a Story. Webhooks
+      generate a unique URL per action instance within a tenant.
+    type: concept
+
+  - term: Tenant
+    definition: >-
+      An isolated Tines environment for an organization. Each tenant has a
+      unique subdomain (e.g., adjective-noun-1234.tines.com or
+      adjective-noun-1234.tines.io) that serves as the base URL for all API
+      calls.
+    type: concept
+
+  - term: SCIM
+    definition: >-
+      System for Cross-domain Identity Management. Tines supports SCIM 2.0
+      for automated user and group provisioning from identity providers.
+      SCIM endpoints are accessible only with tenant-owner API keys.
+    type: concept
+    base_url: /api/scim/v2
+    endpoints:
+      - GET /api/scim/v2/Users
+      - POST /api/scim/v2/Users
+      - GET /api/scim/v2/Users/{id}
+      - PUT /api/scim/v2/Users/{id}
+      - PATCH /api/scim/v2/Users/{id}
+      - DELETE /api/scim/v2/Users/{id}
+      - GET /api/scim/v2/Groups
+      - POST /api/scim/v2/Groups
+      - GET /api/scim/v2/Groups/{id}
+      - PUT /api/scim/v2/Groups/{id}
+      - PATCH /api/scim/v2/Groups/{id}
+      - DELETE /api/scim/v2/Groups/{id}
+
+  - term: API Key
+    definition: >-
+      An authentication token used to access the Tines REST API. There are four
+      types: Personal (tied to a user), Service (tied to a service account),
+      Tenant Owner (full access), and Team (scoped to a specific team). Keys
+      can be passed via the X-User-Token header or as a Bearer token.
+    type: concept
+
+  - term: Event
+    definition: >-
+      The data payload emitted by an Action when it executes. Events flow
+      between connected Actions within a Story. The keep_events_for field on
+      a Story controls event retention duration.
+    type: concept
+
+  - term: Resource
+    definition: >-
+      A reusable data artifact stored in Tines, such as a list, lookup table,
+      or reference dataset, that can be consumed by Actions within Stories.
+    type: concept
+
+authentication:
+  methods:
+    - name: Bearer Token
+      header: Authorization
+      format: "Bearer <api_key>"
+      description: Pass the API key as a Bearer token in the Authorization header
+    - name: X-User-Token
+      header: X-User-Token
+      format: "<api_key>"
+      description: Pass the API key directly in the X-User-Token header
+
+  key_types:
+    - type: Personal API Key
+      scope: User account operations
+      attribution: Attributed to the key owner
+    - type: Service API Key
+      scope: Tenant-level permissions
+      attribution: Attributed to a service account
+    - type: Tenant Owner API Key
+      scope: Full owner access across the entire tenant
+    - type: Team API Key
+      scope: Role-based access to a specific team
+
+pagination:
+  parameters:
+    - name: page
+      type: integer
+      description: Page number (default 1)
+    - name: per_page
+      type: integer
+      description: Results per page (default 20, max 500)
+  meta_fields:
+    - current_page
+    - previous_page
+    - next_page
+    - next_page_number
+    - per_page
+    - pages
+    - count
+
+action_types:
+  - Agents::EmailAgent
+  - Agents::HTTPRequestAgent
+  - Agents::LLMAgent
+  - Agents::WebhookAgent
+  - Agents::EventTransformationAgent
+  - Agents::TriggerAgent
+  - Agents::ImapAgent
+  - Agents::SendToStoryAgent
+  - Agents::Group
+
+credential_modes:
+  - AWS
+  - TEXT
+  - HTTP_REQUEST_AGENT
+  - JWT
+  - OAUTH2
+  - MTLS
+
+case_priorities:
+  - critical
+  - high
+  - medium
+  - low
+  - info
+
+case_statuses:
+  - open
+  - closed

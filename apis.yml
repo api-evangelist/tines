@@ -54,6 +54,8 @@ apis:
         url: https://github.com/tines/go-sdk
       - type: TerraformProvider
         url: https://github.com/tines/terraform-provider-tines
+      - type: OpenAPI
+        url: openapi/tines-rest-api-openapi.yml
 
 common:
   - type: Website

@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tines/main/json-schema/tines-action-schema.json",
+  "title": "Tines Action",
+  "description": "A Tines action resource — an individual step within a story",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Unique action identifier"
+    },
+    "guid": {
+      "type": "string",
+      "description": "Globally unique action identifier"
+    },
+    "type": {
+      "type": "string",
+      "description": "Action type (e.g. Agents::HTTPRequestAgent)",
+      "examples": [
+        "Agents::HTTPRequestAgent",
+        "Agents::EmailAgent",
+        "Agents::LLMAgent",
+        "Agents::WebhookAgent",
+        "Agents::EventTransformationAgent",
+        "Agents::TriggerAgent"
+      ]
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable action name"
+    },
+    "description": {
+      "type": "string",
+      "description": "User-defined description"
+    },
+    "story_id": {
+      "type": "integer",
+      "description": "ID of the parent story"
+    },
+    "group_id": {
+      "type": ["integer", "null"],
+      "description": "ID of the parent group action"
+    },
+    "team_id": {
+      "type": "integer",
+      "description": "ID of the owning team"
+    },
+    "position": {
+      "type": "object",
+      "description": "Canvas position coordinates",
+      "properties": {
+        "x": { "type": "number" },
+        "y": { "type": "number" }
+      },
+      "required": ["x", "y"]
+    },
+    "options": {
+      "type": "object",
+      "description": "Action-type-specific configuration"
+    },
+    "disabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "monitor_failures": {
+      "type": "boolean"
+    },
+    "monitor_all_events": {
+      "type": "boolean"
+    },
+    "monitor_no_events_emitted": {
+      "type": ["integer", "null"],
+      "description": "Duration in seconds before no-event notification fires"
+    },
+    "sources": {
+      "type": "array",
+      "items": { "type": "integer" },
+      "description": "IDs of actions that emit events to this action"
+    },
+    "receivers": {
+      "type": "array",
+      "items": { "type": "integer" },
+      "description": "IDs of actions that receive events from this action"
+    },
+    "blended_events_count": {
+      "type": "integer"
+    },
+    "logs_count": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_event_at": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    }
+  },
+  "required": ["id", "type", "name"],
+  "additionalProperties": true
+}
