@@ -1,0 +1,71 @@
+specificationVersion: "0.1"
+name: Tines API Rate Limits
+description: >-
+  Tines enforces per-IP-address and per-API-token rate limits on its REST API
+  to ensure platform stability. Most endpoints default to 5000 requests per
+  minute, with stricter limits applied to specific sensitive or high-cost
+  endpoints. Requests exceeding the limit receive a 429 Too Many Requests
+  response.
+url: https://www.tines.com/api/api-rate-limits/
+created: "2026-06-13"
+modified: "2026-06-13"
+
+enforcement:
+  strategy: per-IP and per-API-token combination
+  errorCode: 429
+  errorMessage: Too Many Requests
+  retryGuidance: >-
+    Tines recommends using the throttle or delay mode of the event transform
+    action. For HTTP Request actions, configure retry_on_status with 429 and
+    enable exponential backoff via the retries option.
+
+globalDefault:
+  limit: 5000
+  window: 1 minute
+  windowSeconds: 60
+
+endpointLimits:
+  - endpoint: /api/v1/actions
+    description: Story actions management
+    limit: 100
+    window: 1 minute
+    windowSeconds: 60
+
+  - endpoint: /api/v1/admin/users
+    description: Admin user management
+    limit: 500
+    window: 1 minute
+    windowSeconds: 60
+
+  - endpoint: /api/v1/audit_logs
+    description: Audit log retrieval
+    limit: 1000
+    window: 1 minute
+    windowSeconds: 60
+
+  - endpoint: /api/v1/records
+    description: Record data storage and retrieval
+    limit: 400
+    window: 1 minute
+    windowSeconds: 60
+
+  - endpoint: /api/v1/tokens
+    description: Authentication token operations
+    limit: 2500
+    window: 1 minute
+    windowSeconds: 60
+
+webhooks:
+  description: >-
+    Webhook rate limits are configurable per-webhook within the Tines platform.
+    If a webhook's rate limit is exceeded, the request is rejected with a 429
+    status code.
+  configurable: true
+  defaultErrorCode: 429
+  reference: https://www.tines.com/whats-new/rate-limit-configuration-for-webhooks/
+
+pagination:
+  defaultPageSize: 20
+  maxPageSize: 500
+  pageParam: page
+  perPageParam: per_page

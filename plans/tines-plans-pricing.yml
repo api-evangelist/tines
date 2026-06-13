@@ -1,0 +1,78 @@
+specificationVersion: "0.1"
+name: Tines Plans and Pricing
+description: >-
+  Tines offers tiered pricing for its intelligent workflow automation platform,
+  structured around event volume and team size. Pricing is action/event-based
+  rather than seat-based, with a free Community Edition and enterprise plans
+  negotiated directly with sales.
+url: https://www.tines.com/pricing/
+created: "2026-06-13"
+modified: "2026-06-13"
+
+plans:
+  - name: Community Edition
+    description: >-
+      A free, permanently available tier giving individual security practitioners
+      full access to core Tines actions and the ability to build unlimited
+      stories. Ideal for solo users or evaluation purposes.
+    url: https://www.tines.com/pricing/
+    price: 0
+    currency: USD
+    billingCycle: free
+    features:
+      - Unlimited stories (workflows)
+      - Core actions: HTTP requests, triggers, event transforms, data storage
+      - Single-user access
+      - Access to Tines Story Library templates
+      - Community support
+    limitations:
+      - Single user only (no team collaboration)
+      - No SSO support
+      - No audit logs
+      - No advanced integrations
+      - No SLA
+
+  - name: Starter
+    description: >-
+      Entry-level paid plan for small security teams needing event-driven
+      automation with a defined monthly event allowance and a small number
+      of flows.
+    url: https://www.tines.com/pricing/
+    price: 500
+    currency: USD
+    billingCycle: monthly
+    features:
+      - 1,000,000 events per month
+      - 5 to 20 flows
+      - Team collaboration
+      - Standard integrations
+      - Email support
+    limitations:
+      - Limited flow count
+      - No SSO
+      - No advanced audit logs
+      - Overage fees apply beyond event limit
+
+  - name: Enterprise
+    description: >-
+      Custom enterprise pricing negotiated directly with Tines sales. Includes
+      advanced security, compliance, and collaboration features suitable for
+      large security operations teams.
+    url: https://www.tines.com/pricing/
+    price: custom
+    currency: USD
+    billingCycle: annual
+    features:
+      - Custom event volume
+      - Unlimited flows
+      - SSO (SAML/OIDC)
+      - Advanced audit logs
+      - Premium integrations and connectors
+      - Dedicated customer success manager
+      - SLA and priority support
+      - Multi-environment support
+      - SCIM provisioning
+      - Custom contract terms
+    limitations:
+      - Requires direct sales engagement
+      - Annual commitment typically required

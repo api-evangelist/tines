@@ -1,0 +1,111 @@
+specificationVersion: "1.0"
+name: Tines FinOps Framework
+description: >-
+  FinOps FOCUS-aligned cost and usage model for the Tines intelligent workflow
+  automation platform. Tines pricing is event/action-based, making cost
+  directly correlated with workflow execution volume. AI feature usage
+  introduces an additional dimension tracked in tokens, credits, and billed
+  cost per model and provider.
+url: https://www.tines.com/pricing/
+created: "2026-06-13"
+modified: "2026-06-13"
+
+provider:
+  name: Tines
+  url: https://www.tines.com/
+  billingModel: event-based
+  currencies:
+    - USD
+  billingCycles:
+    - monthly
+    - annual
+
+costDrivers:
+  - name: Events / Actions
+    description: >-
+      The primary billing unit. Each execution of an action within a story
+      consumes one or more events against the plan's monthly event quota.
+      Overages above the contracted monthly limit incur additional fees.
+    unit: events per month
+    tiers:
+      - planName: Community Edition
+        includedEvents: unlimited (free tier core actions)
+        overageCostPerEvent: N/A
+      - planName: Starter
+        includedEvents: 1000000
+        overageCostPerEvent: contact sales
+      - planName: Enterprise
+        includedEvents: custom
+        overageCostPerEvent: negotiated
+
+  - name: AI Feature Usage
+    description: >-
+      Tines tracks AI usage separately via the AI usage API endpoint. Costs
+      are tracked by token counts, AI credits, and billed cost broken down by
+      model, provider (e.g., OpenAI, Anthropic), team, feature, or day.
+    unit: AI credits / tokens
+    trackingEndpoint: /api/v1/ai_usages
+    reference: https://www.tines.com/whats-new/ai-usages-api-endpoint-and-updated-workbench-api/
+    dimensions:
+      - model
+      - provider
+      - team
+      - feature
+      - day
+
+  - name: Flows
+    description: >-
+      Some plans cap the number of active flows (story automation sequences).
+      Exceeding the flow count requires upgrading to a higher plan tier.
+    unit: flows
+    tiers:
+      - planName: Starter
+        includedFlows: 5-20
+      - planName: Enterprise
+        includedFlows: unlimited
+
+  - name: Add-ons and Professional Services
+    description: >-
+      Additional costs may apply for premium connectors, additional
+      environments, professional services engagements, and dedicated
+      support tiers beyond standard offerings.
+    unit: varies
+    billingModel: negotiated
+
+optimizationRecommendations:
+  - title: Monitor AI Usage via API
+    description: >-
+      Use the /api/v1/ai_usages endpoint to track token consumption and
+      AI credit spend by model, provider, team, and feature. Set team-level
+      budgets to prevent runaway AI costs.
+
+  - title: Audit Active Stories
+    description: >-
+      Regularly audit active stories to disable unused or redundant workflows
+      that consume events without business value.
+
+  - title: Use Event Throttling
+    description: >-
+      Implement throttle or delay modes in event transform actions to spread
+      event consumption over time and avoid burst overages.
+
+  - title: Right-size Plan to Event Volume
+    description: >-
+      Track monthly event consumption trends and negotiate contract volume
+      proactively to avoid overage pricing, which is typically more expensive
+      per event than contracted rates.
+
+  - title: Leverage Community Edition for Non-Critical Workflows
+    description: >-
+      Route non-production or low-priority workflows through a Community
+      Edition tenant to reserve paid event quota for production workloads.
+
+focusAlignment:
+  version: "1.0"
+  dimensions:
+    - ChargeType: Usage
+    - ServiceName: Tines Workflow Automation
+    - ServiceCategory: Security Automation / SOAR
+    - PricingUnit: events
+    - Region: tenant-specific (cloud-hosted)
+    - Provider: Tines

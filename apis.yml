@@ -1,0 +1,84 @@
+aid: tines
+name: Tines
+description: >-
+  Tines is a no-code intelligent workflow automation platform built for security
+  teams. Its REST API provides programmatic access to manage stories (workflows),
+  actions, agents, credentials, teams, cases, records, folders, dashboards,
+  audit logs, and AI usage. Tenants can also trigger automated workflows via
+  webhooks and integrate with the Tines platform through SCIM for identity
+  provisioning.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/tines/refs/heads/main/apis.yml
+created: "2026-06-13"
+modified: "2026-06-13"
+specificationVersion: "0.19"
+tags:
+  - Security Automation
+  - No-Code
+  - Workflow Automation
+  - Security Operations
+  - SOAR
+  - Incident Response
+  - REST API
+  - Webhooks
+
+apis:
+  - name: Tines REST API
+    description: >-
+      The Tines REST API provides programmatic access to all platform
+      resources including stories (workflows), actions, credentials, teams,
+      folders, cases, records, dashboards, audit logs, SCIM provisioning,
+      AI usage tracking, reporting, tags, and the workbench. The API uses
+      API key authentication via X-User-Token header or Bearer token and
+      is accessed via each tenant's custom subdomain.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://www.tines.com/api/welcome/
+    baseURL: https://{tenant-domain}/api/v1
+    tags:
+      - Stories
+      - Actions
+      - Credentials
+      - Webhooks
+      - Cases
+      - Audit Logs
+      - SCIM
+    properties:
+      - type: Documentation
+        url: https://www.tines.com/api/welcome/
+      - type: Authentication
+        url: https://www.tines.com/api/authentication/
+      - type: RateLimits
+        url: https://www.tines.com/api/api-rate-limits/
+      - type: GoSDK
+        url: https://github.com/tines/go-sdk
+      - type: TerraformProvider
+        url: https://github.com/tines/terraform-provider-tines
+
+common:
+  - type: Website
+    url: https://www.tines.com/
+  - type: Documentation
+    url: https://www.tines.com/api/welcome/
+  - type: GitHubOrg
+    url: https://github.com/tines
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/tines-io
+  - type: Blog
+    url: https://www.tines.com/blog/
+  - type: Pricing
+    url: https://www.tines.com/pricing/
+  - type: StatusPage
+    url: https://status.tines.com/
+  - type: X
+    url: https://x.com/tines_hq
+  - type: Plans
+    url: plans/tines-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/tines-rate-limits.yml
+  - type: FinOps
+    url: finops/tines-finops.yml
+
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
