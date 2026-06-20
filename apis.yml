@@ -8,7 +8,7 @@ description: >-
   webhooks and integrate with the Tines platform through SCIM for identity
   provisioning.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/tines/refs/heads/main/apis.yml
 created: "2026-06-13"
 modified: "2026-06-13"
@@ -32,7 +32,7 @@ apis:
       AI usage tracking, reporting, tags, and the workbench. The API uses
       API key authentication via X-User-Token header or Bearer token and
       is accessed via each tenant's custom subdomain.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://www.tines.com/api/welcome/
     baseURL: https://{tenant-domain}/api/v1
     tags:
