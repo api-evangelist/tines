@@ -1,0 +1,25 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/tines-rest-api-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  description: 'Bearer token authentication using an Tines API key. Format: `Authorization:
+    Bearer <api_key>`'
+  sources:
+  - openapi/tines-rest-api-openapi.yml
+- name: ApiKeyAuth
+  type: apiKey
+  in: header
+  parameter: X-User-Token
+  description: 'API key authentication using the X-User-Token header. Format: `X-User-Token:
+    <api_key>`'
+  sources:
+  - openapi/tines-rest-api-openapi.yml

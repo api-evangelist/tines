@@ -58,6 +58,14 @@ apis:
         url: openapi/tines-rest-api-openapi.yml
 
 common:
+  - type: TrustCenter
+    url: security/tines-trust-center.yml
+  - type: VulnerabilityDisclosure
+    url: security/tines-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/tines-domain-security.yml
+  - type: Authentication
+    url: authentication/tines-authentication.yml
   - type: Website
     url: https://www.tines.com/
   - type: Documentation
