@@ -58,6 +58,8 @@ apis:
         url: openapi/tines-rest-api-openapi.yml
 
 common:
+  - type: AgenticAccess
+    url: agentic-access/tines-agentic-access.yml
   - type: TrustCenter
     url: security/tines-trust-center.yml
   - type: VulnerabilityDisclosure
