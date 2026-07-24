@@ -1,0 +1,346 @@
+openapi: 3.0.3
+info:
+  title: Tines REST Actions API
+  description: The Tines REST API provides programmatic access to all platform resources including stories (workflows), actions, credentials, teams, folders, cases, records, dashboards, audit logs, SCIM provisioning, AI usage tracking, reporting, tags, and the workbench. The API uses API key authentication via X-User-Token header or Bearer token and is accessed via each tenant's custom subdomain.
+  version: 1.0.0
+  contact:
+    name: Tines API Documentation
+    url: https://www.tines.com/api/welcome/
+  x-api-id: tines-rest-api
+  x-provider-name: tines
+servers:
+- url: https://{tenantDomain}/api/v1
+  description: Tines tenant API v1
+  variables:
+    tenantDomain:
+      default: your-tenant.tines.com
+      description: Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)
+- url: https://{tenantDomain}/api/v2
+  description: Tines tenant API v2 (Cases)
+  variables:
+    tenantDomain:
+      default: your-tenant.tines.com
+      description: Your Tines tenant domain
+security:
+- BearerAuth: []
+- ApiKeyAuth: []
+tags:
+- name: Actions
+  description: Manage individual actions within stories
+paths:
+  /actions:
+    get:
+      operationId: listActions
+      summary: List actions
+      description: Returns a paginated list of actions.
+      tags:
+      - Actions
+      parameters:
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PerPage'
+      - name: story_id
+        in: query
+        description: Filter actions by story ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Paginated list of actions
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginatedMeta'
+                - type: object
+                  properties:
+                    actions:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Action'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    post:
+      operationId: createAction
+      summary: Create an action
+      description: Creates a new action within a story.
+      tags:
+      - Actions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActionCreate'
+      responses:
+        '200':
+          description: Action created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Action'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /actions/{id}:
+    get:
+      operationId: getAction
+      summary: Get an action
+      description: Returns details for a specific action by ID.
+      tags:
+      - Actions
+      parameters:
+      - $ref: '#/components/parameters/ResourceId'
+      responses:
+        '200':
+          description: Action details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Action'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    put:
+      operationId: updateAction
+      summary: Update an action
+      description: Updates an existing action by ID.
+      tags:
+      - Actions
+      parameters:
+      - $ref: '#/components/parameters/ResourceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActionCreate'
+      responses:
+        '200':
+          description: Action updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Action'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    delete:
+      operationId: deleteAction
+      summary: Delete an action
+      description: Deletes an action by ID.
+      tags:
+      - Actions
+      parameters:
+      - $ref: '#/components/parameters/ResourceId'
+      responses:
+        '200':
+          description: Action deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message describing the issue
+    Action:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique action identifier
+        guid:
+          type: string
+          description: Globally unique action identifier
+        type:
+          type: string
+          description: Action type (e.g. Agents::HTTPRequestAgent)
+        name:
+          type: string
+          description: Action name
+        description:
+          type: string
+          description: User-defined description
+        story_id:
+          type: integer
+          description: ID of the parent story
+        group_id:
+          type: integer
+          nullable: true
+          description: ID of the parent group
+        team_id:
+          type: integer
+          description: ID of the owning team
+        position:
+          type: object
+          properties:
+            x:
+              type: number
+            y:
+              type: number
+          description: Canvas position coordinates
+        options:
+          type: object
+          description: Action-type-specific configuration
+        disabled:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        last_event_at:
+          type: string
+          format: date-time
+          nullable: true
+    ActionCreate:
+      type: object
+      required:
+      - type
+      - name
+      - options
+      - position
+      properties:
+        type:
+          type: string
+          description: Action type identifier
+          example: Agents::HTTPRequestAgent
+        name:
+          type: string
+          description: Name of the action
+        options:
+          type: object
+          description: Configuration block for the action
+        position:
+          type: object
+          required:
+          - x
+          - y
+          properties:
+            x:
+              type: number
+            y:
+              type: number
+        story_id:
+          type: integer
+          description: Story ID to add the action to
+        group_id:
+          type: integer
+          description: Group ID to add the action to
+        description:
+          type: string
+        disabled:
+          type: boolean
+          default: false
+        source_ids:
+          type: array
+          items:
+            type: integer
+          description: Action IDs to receive events from
+        receiver_ids:
+          type: array
+          items:
+            type: integer
+          description: Action IDs to emit events to
+        monitor_failures:
+          type: boolean
+        monitor_all_events:
+          type: boolean
+        monitor_no_events_emitted:
+          type: integer
+          description: Duration in seconds before notification
+    PaginatedMeta:
+      type: object
+      properties:
+        meta:
+          type: object
+          properties:
+            current_page:
+              type: integer
+            previous_page:
+              type: integer
+              nullable: true
+            next_page:
+              type: integer
+              nullable: true
+            next_page_number:
+              type: integer
+              nullable: true
+            per_page:
+              type: integer
+            pages:
+              type: integer
+            count:
+              type: integer
+  responses:
+    Unauthorized:
+      description: Authentication credentials missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: Validation error — one or more request parameters are invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    ResourceId:
+      name: id
+      in: path
+      required: true
+      description: The unique numeric identifier of the resource
+      schema:
+        type: integer
+    PerPage:
+      name: per_page
+      in: query
+      description: Number of results per page (default 20, max 500)
+      schema:
+        type: integer
+        default: 20
+        maximum: 500
+    Page:
+      name: page
+      in: query
+      description: Page number for pagination (default 1)
+      schema:
+        type: integer
+        default: 1
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Bearer token authentication using an Tines API key. Format: `Authorization: Bearer <api_key>`'
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-User-Token
+      description: 'API key authentication using the X-User-Token header. Format: `X-User-Token: <api_key>`'

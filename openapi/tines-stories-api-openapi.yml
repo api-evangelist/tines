@@ -1,0 +1,345 @@
+openapi: 3.0.3
+info:
+  title: Tines REST Actions Stories API
+  description: The Tines REST API provides programmatic access to all platform resources including stories (workflows), actions, credentials, teams, folders, cases, records, dashboards, audit logs, SCIM provisioning, AI usage tracking, reporting, tags, and the workbench. The API uses API key authentication via X-User-Token header or Bearer token and is accessed via each tenant's custom subdomain.
+  version: 1.0.0
+  contact:
+    name: Tines API Documentation
+    url: https://www.tines.com/api/welcome/
+  x-api-id: tines-rest-api
+  x-provider-name: tines
+servers:
+- url: https://{tenantDomain}/api/v1
+  description: Tines tenant API v1
+  variables:
+    tenantDomain:
+      default: your-tenant.tines.com
+      description: Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)
+- url: https://{tenantDomain}/api/v2
+  description: Tines tenant API v2 (Cases)
+  variables:
+    tenantDomain:
+      default: your-tenant.tines.com
+      description: Your Tines tenant domain
+security:
+- BearerAuth: []
+- ApiKeyAuth: []
+tags:
+- name: Stories
+  description: Manage stories (automated workflows)
+paths:
+  /stories:
+    get:
+      operationId: listStories
+      summary: List stories
+      description: Returns a paginated list of stories accessible by the authenticated API key.
+      tags:
+      - Stories
+      parameters:
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PerPage'
+      - name: team_id
+        in: query
+        description: Filter stories by team ID
+        schema:
+          type: integer
+      - name: folder_id
+        in: query
+        description: Filter stories by folder ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Paginated list of stories
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginatedMeta'
+                - type: object
+                  properties:
+                    stories:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Story'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    post:
+      operationId: createStory
+      summary: Create a story
+      description: Creates a new story (workflow) within a team.
+      tags:
+      - Stories
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StoryCreate'
+            example:
+              name: Simple story
+              description: Detection system alerts
+              team_id: 1
+              folder_id: 1
+      responses:
+        '200':
+          description: Story created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Story'
+              example:
+                id: 7981
+                name: Simple story
+                team_id: 1
+                folder_id: 1
+                guid: df1e838a18d20696120b41516497b017
+                slug: simple_story
+                published: true
+                disabled: false
+                created_at: '2021-05-10T08:56:50Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /stories/{id}:
+    get:
+      operationId: getStory
+      summary: Get a story
+      description: Returns details for a specific story by ID.
+      tags:
+      - Stories
+      parameters:
+      - $ref: '#/components/parameters/ResourceId'
+      responses:
+        '200':
+          description: Story details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Story'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    put:
+      operationId: updateStory
+      summary: Update a story
+      description: Updates an existing story by ID.
+      tags:
+      - Stories
+      parameters:
+      - $ref: '#/components/parameters/ResourceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StoryCreate'
+      responses:
+        '200':
+          description: Story updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Story'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    delete:
+      operationId: deleteStory
+      summary: Delete a story
+      description: Deletes a story by ID.
+      tags:
+      - Stories
+      parameters:
+      - $ref: '#/components/parameters/ResourceId'
+      responses:
+        '200':
+          description: Story deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+components:
+  schemas:
+    Story:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique story identifier
+        name:
+          type: string
+          description: Story name
+        description:
+          type: string
+          description: User-defined description
+        team_id:
+          type: integer
+          description: ID of the team that owns the story
+        folder_id:
+          type: integer
+          nullable: true
+          description: ID of the folder containing the story
+        guid:
+          type: string
+          description: Globally unique story identifier
+        slug:
+          type: string
+          description: URL-friendly story identifier
+        published:
+          type: boolean
+          description: Whether the story is published
+        disabled:
+          type: boolean
+          description: Whether the story is disabled
+        priority:
+          type: boolean
+          description: Whether the story is high-priority
+        keep_events_for:
+          type: integer
+          description: Event retention period in seconds
+        tags:
+          type: array
+          items:
+            type: string
+          description: Tags associated with the story
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        edited_at:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message describing the issue
+    StoryCreate:
+      type: object
+      required:
+      - team_id
+      properties:
+        team_id:
+          type: integer
+          description: ID of the team to which the story should be added
+        name:
+          type: string
+          description: Story name
+        description:
+          type: string
+          description: User-defined description
+        keep_events_for:
+          type: integer
+          description: Event retention in seconds (3600 to 31536000)
+          minimum: 3600
+          maximum: 31536000
+        folder_id:
+          type: integer
+          description: Folder ID for organization
+        tags:
+          type: array
+          items:
+            type: string
+          description: Array of strings used to create tags
+        disabled:
+          type: boolean
+          description: Story enabled status
+          default: false
+        priority:
+          type: boolean
+          description: High priority flag
+          default: false
+    PaginatedMeta:
+      type: object
+      properties:
+        meta:
+          type: object
+          properties:
+            current_page:
+              type: integer
+            previous_page:
+              type: integer
+              nullable: true
+            next_page:
+              type: integer
+              nullable: true
+            next_page_number:
+              type: integer
+              nullable: true
+            per_page:
+              type: integer
+            pages:
+              type: integer
+            count:
+              type: integer
+  responses:
+    Unauthorized:
+      description: Authentication credentials missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: Validation error — one or more request parameters are invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    ResourceId:
+      name: id
+      in: path
+      required: true
+      description: The unique numeric identifier of the resource
+      schema:
+        type: integer
+    Page:
+      name: page
+      in: query
+      description: Page number for pagination (default 1)
+      schema:
+        type: integer
+        default: 1
+    PerPage:
+      name: per_page
+      in: query
+      description: Number of results per page (default 20, max 500)
+      schema:
+        type: integer
+        default: 20
+        maximum: 500
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Bearer token authentication using an Tines API key. Format: `Authorization: Bearer <api_key>`'
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-User-Token
+      description: 'API key authentication using the X-User-Token header. Format: `X-User-Token: <api_key>`'
