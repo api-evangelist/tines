@@ -8,7 +8,20 @@ description: >-
   webhooks and integrate with the Tines platform through SCIM for identity
   provisioning.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/tines.png
 url: https://raw.githubusercontent.com/api-evangelist/tines/refs/heads/main/apis.yml
 created: "2026-06-13"
 modified: "2026-06-13"
@@ -24,39 +37,146 @@ tags:
   - Webhooks
 
 apis:
-  - name: Tines REST API
-    description: >-
-      The Tines REST API provides programmatic access to all platform
-      resources including stories (workflows), actions, credentials, teams,
-      folders, cases, records, dashboards, audit logs, SCIM provisioning,
-      AI usage tracking, reporting, tags, and the workbench. The API uses
-      API key authentication via X-User-Token header or Bearer token and
-      is accessed via each tenant's custom subdomain.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://www.tines.com/api/welcome/
-    baseURL: https://{tenant-domain}/api/v1
-    tags:
-      - Stories
-      - Actions
-      - Credentials
-      - Webhooks
-      - Cases
-      - Audit Logs
-      - SCIM
-    properties:
-      - type: Documentation
-        url: https://www.tines.com/api/welcome/
-      - type: Authentication
-        url: https://www.tines.com/api/authentication/
-      - type: RateLimits
-        url: https://www.tines.com/api/api-rate-limits/
-      - type: GoSDK
-        url: https://github.com/tines/go-sdk
-      - type: TerraformProvider
-        url: https://github.com/tines/terraform-provider-tines
-      - type: OpenAPI
-        url: openapi/tines-rest-api-openapi.yml
-
+- aid: tines:tines-actions-api
+  name: Tines Actions API
+  description: Manage individual actions within stories
+  humanURL: https://www.tines.com/api/welcome/
+  baseURL: https://{tenant-domain}/api/v1
+  tags:
+  - Actions
+  properties:
+  - type: OpenAPI
+    url: openapi/tines-actions-api-openapi.yml
+  - type: Documentation
+    url: https://www.tines.com/api/welcome/
+  - type: Authentication
+    url: https://www.tines.com/api/authentication/
+  - type: RateLimits
+    url: https://www.tines.com/api/api-rate-limits/
+  - type: GoSDK
+    url: https://github.com/tines/go-sdk
+  - type: TerraformProvider
+    url: https://github.com/tines/terraform-provider-tines
+- aid: tines:tines-audit-logs-api
+  name: Tines Audit Logs API
+  description: Retrieve audit log entries for tenant activity
+  humanURL: https://www.tines.com/api/welcome/
+  baseURL: https://{tenant-domain}/api/v1
+  tags:
+  - Audit Logs
+  properties:
+  - type: OpenAPI
+    url: openapi/tines-audit-logs-api-openapi.yml
+  - type: Documentation
+    url: https://www.tines.com/api/welcome/
+  - type: Authentication
+    url: https://www.tines.com/api/authentication/
+  - type: RateLimits
+    url: https://www.tines.com/api/api-rate-limits/
+  - type: GoSDK
+    url: https://github.com/tines/go-sdk
+  - type: TerraformProvider
+    url: https://github.com/tines/terraform-provider-tines
+- aid: tines:tines-credentials-api
+  name: Tines Credentials API
+  description: Manage stored credentials for integrations
+  humanURL: https://www.tines.com/api/welcome/
+  baseURL: https://{tenant-domain}/api/v1
+  tags:
+  - Credentials
+  properties:
+  - type: OpenAPI
+    url: openapi/tines-credentials-api-openapi.yml
+  - type: Documentation
+    url: https://www.tines.com/api/welcome/
+  - type: Authentication
+    url: https://www.tines.com/api/authentication/
+  - type: RateLimits
+    url: https://www.tines.com/api/api-rate-limits/
+  - type: GoSDK
+    url: https://github.com/tines/go-sdk
+  - type: TerraformProvider
+    url: https://github.com/tines/terraform-provider-tines
+- aid: tines:tines-folders-api
+  name: Tines Folders API
+  description: Organize stories, credentials, and resources into folders
+  humanURL: https://www.tines.com/api/welcome/
+  baseURL: https://{tenant-domain}/api/v1
+  tags:
+  - Folders
+  properties:
+  - type: OpenAPI
+    url: openapi/tines-folders-api-openapi.yml
+  - type: Documentation
+    url: https://www.tines.com/api/welcome/
+  - type: Authentication
+    url: https://www.tines.com/api/authentication/
+  - type: RateLimits
+    url: https://www.tines.com/api/api-rate-limits/
+  - type: GoSDK
+    url: https://github.com/tines/go-sdk
+  - type: TerraformProvider
+    url: https://github.com/tines/terraform-provider-tines
+- aid: tines:tines-stories-api
+  name: Tines Stories API
+  description: Manage stories (automated workflows)
+  humanURL: https://www.tines.com/api/welcome/
+  baseURL: https://{tenant-domain}/api/v1
+  tags:
+  - Stories
+  properties:
+  - type: OpenAPI
+    url: openapi/tines-stories-api-openapi.yml
+  - type: Documentation
+    url: https://www.tines.com/api/welcome/
+  - type: Authentication
+    url: https://www.tines.com/api/authentication/
+  - type: RateLimits
+    url: https://www.tines.com/api/api-rate-limits/
+  - type: GoSDK
+    url: https://github.com/tines/go-sdk
+  - type: TerraformProvider
+    url: https://github.com/tines/terraform-provider-tines
+- aid: tines:tines-tags-api
+  name: Tines Tags API
+  description: Manage tags for organizing resources
+  humanURL: https://www.tines.com/api/welcome/
+  baseURL: https://{tenant-domain}/api/v1
+  tags:
+  - Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/tines-tags-api-openapi.yml
+  - type: Documentation
+    url: https://www.tines.com/api/welcome/
+  - type: Authentication
+    url: https://www.tines.com/api/authentication/
+  - type: RateLimits
+    url: https://www.tines.com/api/api-rate-limits/
+  - type: GoSDK
+    url: https://github.com/tines/go-sdk
+  - type: TerraformProvider
+    url: https://github.com/tines/terraform-provider-tines
+- aid: tines:tines-teams-api
+  name: Tines Teams API
+  description: Manage teams and team membership
+  humanURL: https://www.tines.com/api/welcome/
+  baseURL: https://{tenant-domain}/api/v1
+  tags:
+  - Teams
+  properties:
+  - type: OpenAPI
+    url: openapi/tines-teams-api-openapi.yml
+  - type: Documentation
+    url: https://www.tines.com/api/welcome/
+  - type: Authentication
+    url: https://www.tines.com/api/authentication/
+  - type: RateLimits
+    url: https://www.tines.com/api/api-rate-limits/
+  - type: GoSDK
+    url: https://github.com/tines/go-sdk
+  - type: TerraformProvider
+    url: https://github.com/tines/terraform-provider-tines
 common:
   - type: AgenticAccess
     url: agentic-access/tines-agentic-access.yml
