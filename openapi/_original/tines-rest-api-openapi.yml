@@ -1,0 +1,1430 @@
+openapi: 3.0.3
+info:
+  title: Tines REST API
+  description: >-
+    The Tines REST API provides programmatic access to all platform resources
+    including stories (workflows), actions, credentials, teams, folders, cases,
+    records, dashboards, audit logs, SCIM provisioning, AI usage tracking,
+    reporting, tags, and the workbench. The API uses API key authentication via
+    X-User-Token header or Bearer token and is accessed via each tenant's
+    custom subdomain.
+  version: 1.0.0
+  contact:
+    name: Tines API Documentation
+    url: https://www.tines.com/api/welcome/
+  x-api-id: tines-rest-api
+  x-provider-name: tines
+
+servers:
+  - url: https://{tenantDomain}/api/v1
+    description: Tines tenant API v1
+    variables:
+      tenantDomain:
+        default: your-tenant.tines.com
+        description: Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)
+  - url: https://{tenantDomain}/api/v2
+    description: Tines tenant API v2 (Cases)
+    variables:
+      tenantDomain:
+        default: your-tenant.tines.com
+        description: Your Tines tenant domain
+
+security:
+  - BearerAuth: []
+  - ApiKeyAuth: []
+
+tags:
+  - name: Stories
+    description: Manage stories (automated workflows)
+  - name: Actions
+    description: Manage individual actions within stories
+  - name: Credentials
+    description: Manage stored credentials for integrations
+  - name: Teams
+    description: Manage teams and team membership
+  - name: Folders
+    description: Organize stories, credentials, and resources into folders
+  - name: Cases
+    description: Manage security cases and incidents
+  - name: Audit Logs
+    description: Retrieve audit log entries for tenant activity
+  - name: SCIM
+    description: SCIM 2.0 identity provisioning for users and groups
+  - name: Tags
+    description: Manage tags for organizing resources
+
+paths:
+
+  # ─── Stories ─────────────────────────────────────────────────────────────────
+
+  /stories:
+    get:
+      operationId: listStories
+      summary: List stories
+      description: Returns a paginated list of stories accessible by the authenticated API key.
+      tags: [Stories]
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PerPage'
+        - name: team_id
+          in: query
+          description: Filter stories by team ID
+          schema:
+            type: integer
+        - name: folder_id
+          in: query
+          description: Filter stories by folder ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Paginated list of stories
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/PaginatedMeta'
+                  - type: object
+                    properties:
+                      stories:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Story'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    post:
+      operationId: createStory
+      summary: Create a story
+      description: Creates a new story (workflow) within a team.
+      tags: [Stories]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StoryCreate'
+            example:
+              name: Simple story
+              description: Detection system alerts
+              team_id: 1
+              folder_id: 1
+      responses:
+        '200':
+          description: Story created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Story'
+              example:
+                id: 7981
+                name: Simple story
+                team_id: 1
+                folder_id: 1
+                guid: df1e838a18d20696120b41516497b017
+                slug: simple_story
+                published: true
+                disabled: false
+                created_at: '2021-05-10T08:56:50Z'
+
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /stories/{id}:
+    get:
+      operationId: getStory
+      summary: Get a story
+      description: Returns details for a specific story by ID.
+      tags: [Stories]
+      parameters:
+        - $ref: '#/components/parameters/ResourceId'
+      responses:
+        '200':
+          description: Story details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Story'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    put:
+      operationId: updateStory
+      summary: Update a story
+      description: Updates an existing story by ID.
+      tags: [Stories]
+      parameters:
+        - $ref: '#/components/parameters/ResourceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StoryCreate'
+      responses:
+        '200':
+          description: Story updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Story'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    delete:
+      operationId: deleteStory
+      summary: Delete a story
+      description: Deletes a story by ID.
+      tags: [Stories]
+      parameters:
+        - $ref: '#/components/parameters/ResourceId'
+      responses:
+        '200':
+          description: Story deleted successfully
+
+  # ─── Actions ─────────────────────────────────────────────────────────────────
+
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /actions:
+    get:
+      operationId: listActions
+      summary: List actions
+      description: Returns a paginated list of actions.
+      tags: [Actions]
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PerPage'
+        - name: story_id
+          in: query
+          description: Filter actions by story ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Paginated list of actions
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/PaginatedMeta'
+                  - type: object
+                    properties:
+                      actions:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Action'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    post:
+      operationId: createAction
+      summary: Create an action
+      description: Creates a new action within a story.
+      tags: [Actions]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActionCreate'
+      responses:
+        '200':
+          description: Action created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Action'
+
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /actions/{id}:
+    get:
+      operationId: getAction
+      summary: Get an action
+      description: Returns details for a specific action by ID.
+      tags: [Actions]
+      parameters:
+        - $ref: '#/components/parameters/ResourceId'
+      responses:
+        '200':
+          description: Action details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Action'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    put:
+      operationId: updateAction
+      summary: Update an action
+      description: Updates an existing action by ID.
+      tags: [Actions]
+      parameters:
+        - $ref: '#/components/parameters/ResourceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActionCreate'
+      responses:
+        '200':
+          description: Action updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Action'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    delete:
+      operationId: deleteAction
+      summary: Delete an action
+      description: Deletes an action by ID.
+      tags: [Actions]
+      parameters:
+        - $ref: '#/components/parameters/ResourceId'
+      responses:
+        '200':
+          description: Action deleted successfully
+
+  # ─── Credentials ─────────────────────────────────────────────────────────────
+
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /user_credentials:
+    get:
+      operationId: listCredentials
+      summary: List credentials
+      description: Returns a paginated list of credentials accessible by the API key.
+      tags: [Credentials]
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PerPage'
+        - name: team_id
+          in: query
+          description: Filter credentials by team ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Paginated list of credentials
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/PaginatedMeta'
+                  - type: object
+                    properties:
+                      user_credentials:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Credential'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    post:
+      operationId: createCredential
+      summary: Create a credential
+      description: Creates a new credential for use in stories and actions.
+      tags: [Credentials]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CredentialCreate'
+            example:
+              name: aws credential
+              mode: AWS
+              team_id: 2
+              aws_authentication_type: ROLE
+              aws_access_key: v_access_key
+              aws_secret_key: v_secret_key
+              aws_assumed_role_arn: v_role_arn
+      responses:
+        '200':
+          description: Credential created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credential'
+
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /user_credentials/{id}:
+    get:
+      operationId: getCredential
+      summary: Get a credential
+      description: Returns details for a specific credential by ID.
+      tags: [Credentials]
+      parameters:
+        - $ref: '#/components/parameters/ResourceId'
+      responses:
+        '200':
+          description: Credential details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credential'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    put:
+      operationId: updateCredential
+      summary: Update a credential
+      description: Updates an existing credential by ID.
+      tags: [Credentials]
+      parameters:
+        - $ref: '#/components/parameters/ResourceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CredentialCreate'
+      responses:
+        '200':
+          description: Credential updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credential'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    delete:
+      operationId: deleteCredential
+      summary: Delete a credential
+      description: Deletes a credential by ID.
+      tags: [Credentials]
+      parameters:
+        - $ref: '#/components/parameters/ResourceId'
+      responses:
+        '200':
+          description: Credential deleted successfully
+
+  # ─── Teams ───────────────────────────────────────────────────────────────────
+
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /teams:
+    get:
+      operationId: listTeams
+      summary: List teams
+      description: Returns a list of teams accessible by the API key.
+      tags: [Teams]
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PerPage'
+      responses:
+        '200':
+          description: List of teams
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/PaginatedMeta'
+                  - type: object
+                    properties:
+                      teams:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Team'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    post:
+      operationId: createTeam
+      summary: Create a team
+      description: Creates a new team.
+      tags: [Teams]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name:
+                  type: string
+                  description: The team name
+            example:
+              name: Security team
+      responses:
+        '200':
+          description: Team created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+              example:
+                id: 1
+                name: Security team
+
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /teams/{id}:
+    get:
+      operationId: getTeam
+      summary: Get a team
+      description: Returns details for a specific team by ID.
+      tags: [Teams]
+      parameters:
+        - $ref: '#/components/parameters/ResourceId'
+      responses:
+        '200':
+          description: Team details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    put:
+      operationId: updateTeam
+      summary: Update a team
+      description: Updates an existing team by ID.
+      tags: [Teams]
+      parameters:
+        - $ref: '#/components/parameters/ResourceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+      responses:
+        '200':
+          description: Team updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    delete:
+      operationId: deleteTeam
+      summary: Delete a team
+      description: Deletes a team by ID.
+      tags: [Teams]
+      parameters:
+        - $ref: '#/components/parameters/ResourceId'
+      responses:
+        '200':
+          description: Team deleted successfully
+
+  # ─── Folders ─────────────────────────────────────────────────────────────────
+
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /folders:
+    get:
+      operationId: listFolders
+      summary: List folders
+      description: Returns a paginated list of folders.
+      tags: [Folders]
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PerPage'
+        - name: team_id
+          in: query
+          description: Filter folders by team ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Paginated list of folders
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/PaginatedMeta'
+                  - type: object
+                    properties:
+                      folders:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Folder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    post:
+      operationId: createFolder
+      summary: Create a folder
+      description: Creates a new folder to organize stories, credentials, or resources.
+      tags: [Folders]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FolderCreate'
+            example:
+              name: Folder name
+              content_type: CREDENTIAL
+              team_id: 1
+              parent_folder_id: 5
+      responses:
+        '200':
+          description: Folder created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Folder'
+              example:
+                id: 1
+                name: Folder name
+                content_type: CREDENTIAL
+                team_id: 1
+                size: 0
+                parent_folder_id: 5
+
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /folders/{id}:
+    get:
+      operationId: getFolder
+      summary: Get a folder
+      description: Returns details for a specific folder by ID.
+      tags: [Folders]
+      parameters:
+        - $ref: '#/components/parameters/ResourceId'
+      responses:
+        '200':
+          description: Folder details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Folder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    put:
+      operationId: updateFolder
+      summary: Update a folder
+      description: Updates an existing folder by ID.
+      tags: [Folders]
+      parameters:
+        - $ref: '#/components/parameters/ResourceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FolderCreate'
+      responses:
+        '200':
+          description: Folder updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Folder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    delete:
+      operationId: deleteFolder
+      summary: Delete a folder
+      description: Deletes a folder by ID.
+      tags: [Folders]
+      parameters:
+        - $ref: '#/components/parameters/ResourceId'
+      responses:
+        '200':
+          description: Folder deleted successfully
+
+  # ─── Audit Logs ──────────────────────────────────────────────────────────────
+
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /audit_logs:
+    get:
+      operationId: listAuditLogs
+      summary: List audit logs
+      description: >-
+        Returns a paginated list of audit log entries. Only accessible by
+        tenant administrators.
+      tags: [Audit Logs]
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PerPage'
+      responses:
+        '200':
+          description: Paginated list of audit log entries
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/PaginatedMeta'
+                  - type: object
+                    properties:
+                      audit_logs:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/AuditLog'
+
+  # ─── Tags ────────────────────────────────────────────────────────────────────
+
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /tags:
+    get:
+      operationId: listTags
+      summary: List tags
+      description: Returns a list of tags accessible by the API key.
+      tags: [Tags]
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PerPage'
+      responses:
+        '200':
+          description: Paginated list of tags
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/PaginatedMeta'
+                  - type: object
+                    properties:
+                      tags:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Tag'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    post:
+      operationId: createTag
+      summary: Create a tag
+      description: Creates a new tag for organizing resources.
+      tags: [Tags]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagCreate'
+            example:
+              name: priority-high
+              team_id: 1
+              color: red
+      responses:
+        '200':
+          description: Tag created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+              example:
+                id: 17
+                name: priority-high
+                color: '#FF8888'
+                teams:
+                  - id: 276
+                    name: Test team 1
+                created_at: '2026-04-10T09:15:42.128Z'
+                updated_at: '2026-04-10T09:15:42.128Z'
+
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /tags/{id}:
+    get:
+      operationId: getTag
+      summary: Get a tag
+      description: Returns details for a specific tag by ID.
+      tags: [Tags]
+      parameters:
+        - $ref: '#/components/parameters/ResourceId'
+      responses:
+        '200':
+          description: Tag details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    put:
+      operationId: updateTag
+      summary: Update a tag
+      description: Updates an existing tag by ID.
+      tags: [Tags]
+      parameters:
+        - $ref: '#/components/parameters/ResourceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagCreate'
+      responses:
+        '200':
+          description: Tag updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    delete:
+      operationId: deleteTag
+      summary: Delete a tag
+      description: Deletes a tag by ID.
+      tags: [Tags]
+      parameters:
+        - $ref: '#/components/parameters/ResourceId'
+      responses:
+        '200':
+          description: Tag deleted successfully
+
+# ─── Cases (v2) ────────────────────────────────────────────────────────────────
+# Note: Cases use /api/v2 base path
+
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        Bearer token authentication using an Tines API key.
+        Format: `Authorization: Bearer <api_key>`
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-User-Token
+      description: >-
+        API key authentication using the X-User-Token header.
+        Format: `X-User-Token: <api_key>`
+
+  parameters:
+    ResourceId:
+      name: id
+      in: path
+      required: true
+      description: The unique numeric identifier of the resource
+      schema:
+        type: integer
+    Page:
+      name: page
+      in: query
+      description: Page number for pagination (default 1)
+      schema:
+        type: integer
+        default: 1
+    PerPage:
+      name: per_page
+      in: query
+      description: Number of results per page (default 20, max 500)
+      schema:
+        type: integer
+        default: 20
+        maximum: 500
+
+  schemas:
+    PaginatedMeta:
+      type: object
+      properties:
+        meta:
+          type: object
+          properties:
+            current_page:
+              type: integer
+            previous_page:
+              type: integer
+              nullable: true
+            next_page:
+              type: integer
+              nullable: true
+            next_page_number:
+              type: integer
+              nullable: true
+            per_page:
+              type: integer
+            pages:
+              type: integer
+            count:
+              type: integer
+
+    Story:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique story identifier
+        name:
+          type: string
+          description: Story name
+        description:
+          type: string
+          description: User-defined description
+        team_id:
+          type: integer
+          description: ID of the team that owns the story
+        folder_id:
+          type: integer
+          nullable: true
+          description: ID of the folder containing the story
+        guid:
+          type: string
+          description: Globally unique story identifier
+        slug:
+          type: string
+          description: URL-friendly story identifier
+        published:
+          type: boolean
+          description: Whether the story is published
+        disabled:
+          type: boolean
+          description: Whether the story is disabled
+        priority:
+          type: boolean
+          description: Whether the story is high-priority
+        keep_events_for:
+          type: integer
+          description: Event retention period in seconds
+        tags:
+          type: array
+          items:
+            type: string
+          description: Tags associated with the story
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        edited_at:
+          type: string
+          format: date-time
+
+    StoryCreate:
+      type: object
+      required: [team_id]
+      properties:
+        team_id:
+          type: integer
+          description: ID of the team to which the story should be added
+        name:
+          type: string
+          description: Story name
+        description:
+          type: string
+          description: User-defined description
+        keep_events_for:
+          type: integer
+          description: Event retention in seconds (3600 to 31536000)
+          minimum: 3600
+          maximum: 31536000
+        folder_id:
+          type: integer
+          description: Folder ID for organization
+        tags:
+          type: array
+          items:
+            type: string
+          description: Array of strings used to create tags
+        disabled:
+          type: boolean
+          description: Story enabled status
+          default: false
+        priority:
+          type: boolean
+          description: High priority flag
+          default: false
+
+    Action:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique action identifier
+        guid:
+          type: string
+          description: Globally unique action identifier
+        type:
+          type: string
+          description: Action type (e.g. Agents::HTTPRequestAgent)
+        name:
+          type: string
+          description: Action name
+        description:
+          type: string
+          description: User-defined description
+        story_id:
+          type: integer
+          description: ID of the parent story
+        group_id:
+          type: integer
+          nullable: true
+          description: ID of the parent group
+        team_id:
+          type: integer
+          description: ID of the owning team
+        position:
+          type: object
+          properties:
+            x:
+              type: number
+            y:
+              type: number
+          description: Canvas position coordinates
+        options:
+          type: object
+          description: Action-type-specific configuration
+        disabled:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        last_event_at:
+          type: string
+          format: date-time
+          nullable: true
+
+    ActionCreate:
+      type: object
+      required: [type, name, options, position]
+      properties:
+        type:
+          type: string
+          description: Action type identifier
+          example: Agents::HTTPRequestAgent
+        name:
+          type: string
+          description: Name of the action
+        options:
+          type: object
+          description: Configuration block for the action
+        position:
+          type: object
+          required: [x, y]
+          properties:
+            x:
+              type: number
+            y:
+              type: number
+        story_id:
+          type: integer
+          description: Story ID to add the action to
+        group_id:
+          type: integer
+          description: Group ID to add the action to
+        description:
+          type: string
+        disabled:
+          type: boolean
+          default: false
+        source_ids:
+          type: array
+          items:
+            type: integer
+          description: Action IDs to receive events from
+        receiver_ids:
+          type: array
+          items:
+            type: integer
+          description: Action IDs to emit events to
+        monitor_failures:
+          type: boolean
+        monitor_all_events:
+          type: boolean
+        monitor_no_events_emitted:
+          type: integer
+          description: Duration in seconds before notification
+
+    Credential:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        mode:
+          type: string
+          enum: [AWS, TEXT, HTTP_REQUEST_AGENT, JWT, OAUTH2, MTLS]
+        team_id:
+          type: integer
+        folder_id:
+          type: integer
+          nullable: true
+        read_access:
+          type: string
+          enum: [TEAM, GLOBAL, SPECIFIC_TEAMS]
+        shared_team_slugs:
+          type: array
+          items:
+            type: string
+        slug:
+          type: string
+        description:
+          type: string
+        allowed_hosts:
+          type: array
+          items:
+            type: string
+        metadata:
+          type: object
+        owner:
+          type: object
+          properties:
+            user_id:
+              type: integer
+            first_name:
+              type: string
+            last_name:
+              type: string
+            email:
+              type: string
+        expires_at:
+          type: string
+          format: date-time
+          nullable: true
+        expiry_notifications_enabled:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    CredentialCreate:
+      type: object
+      required: [name, mode, team_id]
+      properties:
+        name:
+          type: string
+          description: Credential name
+        mode:
+          type: string
+          enum: [AWS, TEXT, HTTP_REQUEST_AGENT, JWT, OAUTH2, MTLS]
+          description: Credential type
+        team_id:
+          type: integer
+          description: Team ID where credential resides
+        aws_authentication_type:
+          type: string
+          enum: [KEY, ROLE, INSTANCE_PROFILE]
+          description: AWS authentication type (required when mode is AWS)
+        aws_access_key:
+          type: string
+          description: AWS access key ID
+        aws_secret_key:
+          type: string
+          description: AWS secret access key
+        aws_assumed_role_arn:
+          type: string
+          description: Required if aws_authentication_type is ROLE
+        use_static_external_id:
+          type: boolean
+          description: Enable team-scoped static external ID
+        folder_id:
+          type: integer
+          description: Folder location ID
+        read_access:
+          type: string
+          enum: [TEAM, GLOBAL, SPECIFIC_TEAMS]
+          default: TEAM
+        shared_team_slugs:
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+        metadata:
+          type: object
+        allowed_hosts:
+          type: array
+          items:
+            type: string
+        expires_at:
+          type: string
+          format: date-time
+        expiry_notifications_enabled:
+          type: boolean
+          default: false
+        credential_notification_recipient_user_ids:
+          type: array
+          items:
+            type: integer
+
+    Team:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique team identifier
+        name:
+          type: string
+          description: Team name
+
+    Folder:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique folder identifier
+        name:
+          type: string
+          description: Folder name
+        content_type:
+          type: string
+          enum: [CREDENTIAL, RESOURCE, STORY]
+          description: Type of content stored in this folder
+        team_id:
+          type: integer
+          description: ID of team to which the folder belongs
+        size:
+          type: integer
+          description: Number of items in this folder
+        parent_folder_id:
+          type: integer
+          nullable: true
+          description: ID of the parent folder, or null if at root level
+
+    FolderCreate:
+      type: object
+      required: [name, content_type, team_id]
+      properties:
+        name:
+          type: string
+          description: The folder name
+        content_type:
+          type: string
+          enum: [CREDENTIAL, RESOURCE, STORY]
+          description: Accepts CREDENTIAL, RESOURCE, or STORY
+        team_id:
+          type: integer
+          description: ID of team receiving the folder
+        parent_folder_id:
+          type: integer
+          nullable: true
+          description: ID of the parent folder; default null (root level)
+
+    AuditLog:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique audit log entry identifier
+        created_at:
+          type: string
+          format: date-time
+          description: When the event occurred
+        operation_name:
+          type: string
+          description: The type of operation logged (e.g. StoryCreation, ActionRun)
+        user_id:
+          type: integer
+          description: ID of the user who performed the action
+        user_email:
+          type: string
+          description: Email of the user who performed the action
+        user_name:
+          type: string
+          description: Name of the user who performed the action
+        tenant_id:
+          type: integer
+          description: Tenant ID where the action occurred
+        request_ip:
+          type: string
+          description: IP address of the request
+        request_user_agent:
+          type: string
+          description: User agent string of the request
+        inputs:
+          type: object
+          description: Parameters associated with the operation
+
+    Tag:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique tag identifier
+        name:
+          type: string
+          description: Tag name
+        color:
+          type: string
+          description: Tag color in hex format (e.g. #FF8888)
+        teams:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+          description: Teams this tag belongs to
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    TagCreate:
+      type: object
+      required: [name, team_id, color]
+      properties:
+        name:
+          type: string
+          description: Tag name
+        team_id:
+          type: integer
+          description: ID of the team to which the tag belongs
+        color:
+          type: string
+          description: >-
+            Tag color - one of purple, blue, gold, green, magenta, red,
+            orange, mint, or a hex format like #RRGGBB
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message describing the issue
+
+  responses:
+    Unauthorized:
+      description: Authentication credentials missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: Validation error — one or more request parameters are invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

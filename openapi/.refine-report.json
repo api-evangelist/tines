@@ -1,0 +1,26 @@
+{
+  "provider": "tines",
+  "sources": [
+    "tines-actions-api-openapi.yml",
+    "tines-audit-logs-api-openapi.yml",
+    "tines-credentials-api-openapi.yml",
+    "tines-folders-api-openapi.yml",
+    "tines-stories-api-openapi.yml",
+    "tines-tags-api-openapi.yml",
+    "tines-teams-api-openapi.yml"
+  ],
+  "outputs": [
+    "tines-actions-api-openapi.yml",
+    "tines-audit-logs-api-openapi.yml",
+    "tines-credentials-api-openapi.yml",
+    "tines-folders-api-openapi.yml",
+    "tines-stories-api-openapi.yml",
+    "tines-tags-api-openapi.yml",
+    "tines-teams-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
