@@ -1,0 +1,341 @@
+{
+  "item": [
+    {
+      "id": "c71a57d0-8d5f-4468-8189-4fabf7a9519e",
+      "name": "Audit Logs",
+      "description": {
+        "content": "Retrieve audit log entries for tenant activity",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cc1b260c-a9c6-4728-8624-ba9a3df7331c",
+          "name": "List audit logs",
+          "request": {
+            "name": "List audit logs",
+            "description": {
+              "content": "Returns a paginated list of audit log entries. Only accessible by tenant administrators.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "audit_logs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for pagination (default 1)"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "20",
+                  "description": "Number of results per page (default 20, max 500)"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)",
+                  "type": "any",
+                  "value": "{{tenantDomain}}",
+                  "key": "tenantDomain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f37bce6f-8ebb-4c25-892a-76573939f140",
+              "name": "Paginated list of audit log entries",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audit_logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)",
+                      "type": "any",
+                      "value": "{{tenantDomain}}",
+                      "key": "tenantDomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"current_page\": 5687,\n    \"previous_page\": 7461,\n    \"next_page\": 3760,\n    \"next_page_number\": 5695,\n    \"per_page\": 6116,\n    \"pages\": 9496,\n    \"count\": 6357\n  },\n  \"audit_logs\": [\n    {\n      \"id\": 5937,\n      \"created_at\": \"1950-05-16T10:04:44.676Z\",\n      \"operation_name\": \"string\",\n      \"user_id\": 2467,\n      \"user_email\": \"string\",\n      \"user_name\": \"string\",\n      \"tenant_id\": 1169,\n      \"request_ip\": \"string\",\n      \"request_user_agent\": \"string\",\n      \"inputs\": {}\n    },\n    {\n      \"id\": 4115,\n      \"created_at\": \"1975-02-28T18:49:20.044Z\",\n      \"operation_name\": \"string\",\n      \"user_id\": 7609,\n      \"user_email\": \"string\",\n      \"user_name\": \"string\",\n      \"tenant_id\": 6544,\n      \"request_ip\": \"string\",\n      \"request_user_agent\": \"string\",\n      \"inputs\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b279f429-d166-48af-a23b-e2b97b2fdb79",
+              "name": "Authentication credentials missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audit_logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)",
+                      "type": "any",
+                      "value": "{{tenantDomain}}",
+                      "key": "tenantDomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "19648885-f1c8-499b-b4ed-5315b60f774f",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audit_logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)",
+                      "type": "any",
+                      "value": "{{tenantDomain}}",
+                      "key": "tenantDomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fad2c056-1251-4f59-88fe-31b061e26609",
+              "name": "Validation error — one or more request parameters are invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audit_logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)",
+                      "type": "any",
+                      "value": "{{tenantDomain}}",
+                      "key": "tenantDomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-tenant.tines.com",
+      "key": "tenantDomain"
+    },
+    {
+      "type": "string",
+      "value": "https://{{tenantDomain}}/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "440a3088-6fe9-4305-8b6e-3a8f198e36af",
+    "name": "Tines REST Actions Audit Logs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Tines REST API provides programmatic access to all platform resources including stories (workflows), actions, credentials, teams, folders, cases, records, dashboards, audit logs, SCIM provisioning, AI usage tracking, reporting, tags, and the workbench. The API uses API key authentication via X-User-Token header or Bearer token and is accessed via each tenant's custom subdomain.\n\nContact Support:\n Name: Tines API Documentation",
+      "type": "text/plain"
+    }
+  }
+}

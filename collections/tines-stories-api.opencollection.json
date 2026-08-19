@@ -1,0 +1,137 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tines REST Actions Stories API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Stories",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List stories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenantDomain}/api/v1/stories",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination (default 1)"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page (default 20, max 500)"
+              },
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter stories by team ID"
+              },
+              {
+                "name": "folder_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter stories by folder ID"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of stories accessible by the authenticated API key."
+        },
+        {
+          "info": {
+            "name": "Create a story",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenantDomain}/api/v1/stories",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new story (workflow) within a team."
+        },
+        {
+          "info": {
+            "name": "Get a story",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenantDomain}/api/v1/stories/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique numeric identifier of the resource"
+              }
+            ]
+          },
+          "docs": "Returns details for a specific story by ID."
+        },
+        {
+          "info": {
+            "name": "Update a story",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{tenantDomain}/api/v1/stories/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique numeric identifier of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing story by ID."
+        },
+        {
+          "info": {
+            "name": "Delete a story",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{tenantDomain}/api/v1/stories/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique numeric identifier of the resource"
+              }
+            ]
+          },
+          "docs": "Deletes a story by ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

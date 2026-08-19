@@ -1,0 +1,1537 @@
+{
+  "item": [
+    {
+      "id": "6e149d1a-7fc9-4727-adca-90ab654b6438",
+      "name": "Actions",
+      "description": {
+        "content": "Manage individual actions within stories",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2269c286-113c-4384-be41-f6df5fc3967b",
+          "name": "List actions",
+          "request": {
+            "name": "List actions",
+            "description": {
+              "content": "Returns a paginated list of actions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "actions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for pagination (default 1)"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "20",
+                  "description": "Number of results per page (default 20, max 500)"
+                },
+                {
+                  "disabled": false,
+                  "key": "story_id",
+                  "value": "<integer>",
+                  "description": "Filter actions by story ID"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)",
+                  "type": "any",
+                  "value": "{{tenantDomain}}",
+                  "key": "tenantDomain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "aef3bc9b-d4cc-4fdd-8059-f502a5065790",
+              "name": "Paginated list of actions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "actions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "story_id",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)",
+                      "type": "any",
+                      "value": "{{tenantDomain}}",
+                      "key": "tenantDomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"current_page\": 7265,\n    \"previous_page\": 5949,\n    \"next_page\": 7119,\n    \"next_page_number\": 3728,\n    \"per_page\": 2016,\n    \"pages\": 7266,\n    \"count\": 6322\n  },\n  \"actions\": [\n    {\n      \"id\": 9106,\n      \"guid\": \"string\",\n      \"type\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"story_id\": 2259,\n      \"group_id\": 2180,\n      \"team_id\": 1590,\n      \"position\": {\n        \"x\": 4127.726224786088,\n        \"y\": 2440.5486163331448\n      },\n      \"options\": {},\n      \"disabled\": false,\n      \"created_at\": \"1994-05-27T10:20:05.832Z\",\n      \"updated_at\": \"1974-04-18T22:32:25.968Z\",\n      \"last_event_at\": \"2015-01-07T21:33:50.810Z\"\n    },\n    {\n      \"id\": 7219,\n      \"guid\": \"string\",\n      \"type\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"story_id\": 4256,\n      \"group_id\": 6549,\n      \"team_id\": 2711,\n      \"position\": {\n        \"x\": 363.5659352593934,\n        \"y\": 7338.2144368165\n      },\n      \"options\": {},\n      \"disabled\": false,\n      \"created_at\": \"1981-05-02T21:39:44.007Z\",\n      \"updated_at\": \"1989-07-02T15:30:51.316Z\",\n      \"last_event_at\": \"2009-01-02T00:09:09.905Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bf7263f3-8f2c-4784-bb38-a938963339d1",
+              "name": "Authentication credentials missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "actions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "story_id",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)",
+                      "type": "any",
+                      "value": "{{tenantDomain}}",
+                      "key": "tenantDomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e54cc384-81f1-4a97-b3ee-ce239c822bf8",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "actions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "story_id",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)",
+                      "type": "any",
+                      "value": "{{tenantDomain}}",
+                      "key": "tenantDomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c0dbecde-365e-441b-9dd6-e854a4cb2c09",
+              "name": "Validation error — one or more request parameters are invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "actions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "story_id",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)",
+                      "type": "any",
+                      "value": "{{tenantDomain}}",
+                      "key": "tenantDomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "807fff55-d83b-465b-af92-e372bd81a805",
+          "name": "Create an action",
+          "request": {
+            "name": "Create an action",
+            "description": {
+              "content": "Creates a new action within a story.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "actions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)",
+                  "type": "any",
+                  "value": "{{tenantDomain}}",
+                  "key": "tenantDomain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"options\": \"<object>\",\n  \"position\": {\n    \"x\": \"<number>\",\n    \"y\": \"<number>\"\n  },\n  \"story_id\": \"<integer>\",\n  \"group_id\": \"<integer>\",\n  \"description\": \"<string>\",\n  \"disabled\": false,\n  \"source_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"receiver_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"monitor_failures\": \"<boolean>\",\n  \"monitor_all_events\": \"<boolean>\",\n  \"monitor_no_events_emitted\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c642450a-e455-45f4-b5f2-439de8e8ff38",
+              "name": "Action created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "actions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)",
+                      "type": "any",
+                      "value": "{{tenantDomain}}",
+                      "key": "tenantDomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"Agents::HTTPRequestAgent\",\n  \"name\": \"<string>\",\n  \"options\": \"<object>\",\n  \"position\": {\n    \"x\": \"<number>\",\n    \"y\": \"<number>\"\n  },\n  \"story_id\": \"<integer>\",\n  \"group_id\": \"<integer>\",\n  \"description\": \"<string>\",\n  \"disabled\": false,\n  \"source_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"receiver_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"monitor_failures\": \"<boolean>\",\n  \"monitor_all_events\": \"<boolean>\",\n  \"monitor_no_events_emitted\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 242,\n  \"guid\": \"string\",\n  \"type\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"story_id\": 44,\n  \"group_id\": 1962,\n  \"team_id\": 3758,\n  \"position\": {\n    \"x\": 1424.075755991503,\n    \"y\": 460.86101740063003\n  },\n  \"options\": {},\n  \"disabled\": false,\n  \"created_at\": \"2016-04-09T10:13:41.855Z\",\n  \"updated_at\": \"1953-03-06T04:45:29.359Z\",\n  \"last_event_at\": \"1989-01-03T13:42:18.794Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f3c6c44e-6b6d-4d00-a985-28334126ffd9",
+              "name": "Authentication credentials missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "actions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)",
+                      "type": "any",
+                      "value": "{{tenantDomain}}",
+                      "key": "tenantDomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"Agents::HTTPRequestAgent\",\n  \"name\": \"<string>\",\n  \"options\": \"<object>\",\n  \"position\": {\n    \"x\": \"<number>\",\n    \"y\": \"<number>\"\n  },\n  \"story_id\": \"<integer>\",\n  \"group_id\": \"<integer>\",\n  \"description\": \"<string>\",\n  \"disabled\": false,\n  \"source_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"receiver_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"monitor_failures\": \"<boolean>\",\n  \"monitor_all_events\": \"<boolean>\",\n  \"monitor_no_events_emitted\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "60c0d1c4-94b7-49d2-a7ef-bc012981edad",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "actions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)",
+                      "type": "any",
+                      "value": "{{tenantDomain}}",
+                      "key": "tenantDomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"Agents::HTTPRequestAgent\",\n  \"name\": \"<string>\",\n  \"options\": \"<object>\",\n  \"position\": {\n    \"x\": \"<number>\",\n    \"y\": \"<number>\"\n  },\n  \"story_id\": \"<integer>\",\n  \"group_id\": \"<integer>\",\n  \"description\": \"<string>\",\n  \"disabled\": false,\n  \"source_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"receiver_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"monitor_failures\": \"<boolean>\",\n  \"monitor_all_events\": \"<boolean>\",\n  \"monitor_no_events_emitted\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd30b278-892d-4a8a-a4a6-a5a43b91800a",
+              "name": "Validation error — one or more request parameters are invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "actions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)",
+                      "type": "any",
+                      "value": "{{tenantDomain}}",
+                      "key": "tenantDomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"Agents::HTTPRequestAgent\",\n  \"name\": \"<string>\",\n  \"options\": \"<object>\",\n  \"position\": {\n    \"x\": \"<number>\",\n    \"y\": \"<number>\"\n  },\n  \"story_id\": \"<integer>\",\n  \"group_id\": \"<integer>\",\n  \"description\": \"<string>\",\n  \"disabled\": false,\n  \"source_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"receiver_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"monitor_failures\": \"<boolean>\",\n  \"monitor_all_events\": \"<boolean>\",\n  \"monitor_no_events_emitted\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "37bd6a18-ae09-4ba7-ba5c-42ea43a5a1be",
+          "name": "Get an action",
+          "request": {
+            "name": "Get an action",
+            "description": {
+              "content": "Returns details for a specific action by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "actions",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The unique numeric identifier of the resource"
+                },
+                {
+                  "description": "Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)",
+                  "type": "any",
+                  "value": "{{tenantDomain}}",
+                  "key": "tenantDomain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "154e05b6-ce27-4971-995c-906433bbfe50",
+              "name": "Action details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "actions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The unique numeric identifier of the resource"
+                    },
+                    {
+                      "description": "Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)",
+                      "type": "any",
+                      "value": "{{tenantDomain}}",
+                      "key": "tenantDomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 242,\n  \"guid\": \"string\",\n  \"type\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"story_id\": 44,\n  \"group_id\": 1962,\n  \"team_id\": 3758,\n  \"position\": {\n    \"x\": 1424.075755991503,\n    \"y\": 460.86101740063003\n  },\n  \"options\": {},\n  \"disabled\": false,\n  \"created_at\": \"2016-04-09T10:13:41.855Z\",\n  \"updated_at\": \"1953-03-06T04:45:29.359Z\",\n  \"last_event_at\": \"1989-01-03T13:42:18.794Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8ff5ac8-2075-45f3-8b6d-d100d7e407d9",
+              "name": "Authentication credentials missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "actions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The unique numeric identifier of the resource"
+                    },
+                    {
+                      "description": "Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)",
+                      "type": "any",
+                      "value": "{{tenantDomain}}",
+                      "key": "tenantDomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8f218cf9-c5e8-47c3-ad5a-a20e7ca37946",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "actions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The unique numeric identifier of the resource"
+                    },
+                    {
+                      "description": "Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)",
+                      "type": "any",
+                      "value": "{{tenantDomain}}",
+                      "key": "tenantDomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f02d912c-57c8-4548-be79-9edbbd01da14",
+              "name": "Validation error — one or more request parameters are invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "actions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The unique numeric identifier of the resource"
+                    },
+                    {
+                      "description": "Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)",
+                      "type": "any",
+                      "value": "{{tenantDomain}}",
+                      "key": "tenantDomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d8ef5f26-36d3-48e2-a412-d130a5141f2e",
+          "name": "Update an action",
+          "request": {
+            "name": "Update an action",
+            "description": {
+              "content": "Updates an existing action by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "actions",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The unique numeric identifier of the resource"
+                },
+                {
+                  "description": "Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)",
+                  "type": "any",
+                  "value": "{{tenantDomain}}",
+                  "key": "tenantDomain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"options\": \"<object>\",\n  \"position\": {\n    \"x\": \"<number>\",\n    \"y\": \"<number>\"\n  },\n  \"story_id\": \"<integer>\",\n  \"group_id\": \"<integer>\",\n  \"description\": \"<string>\",\n  \"disabled\": false,\n  \"source_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"receiver_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"monitor_failures\": \"<boolean>\",\n  \"monitor_all_events\": \"<boolean>\",\n  \"monitor_no_events_emitted\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e8b6caaf-5855-4fc2-8e29-8424c9c59aeb",
+              "name": "Action updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "actions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The unique numeric identifier of the resource"
+                    },
+                    {
+                      "description": "Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)",
+                      "type": "any",
+                      "value": "{{tenantDomain}}",
+                      "key": "tenantDomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"Agents::HTTPRequestAgent\",\n  \"name\": \"<string>\",\n  \"options\": \"<object>\",\n  \"position\": {\n    \"x\": \"<number>\",\n    \"y\": \"<number>\"\n  },\n  \"story_id\": \"<integer>\",\n  \"group_id\": \"<integer>\",\n  \"description\": \"<string>\",\n  \"disabled\": false,\n  \"source_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"receiver_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"monitor_failures\": \"<boolean>\",\n  \"monitor_all_events\": \"<boolean>\",\n  \"monitor_no_events_emitted\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 242,\n  \"guid\": \"string\",\n  \"type\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"story_id\": 44,\n  \"group_id\": 1962,\n  \"team_id\": 3758,\n  \"position\": {\n    \"x\": 1424.075755991503,\n    \"y\": 460.86101740063003\n  },\n  \"options\": {},\n  \"disabled\": false,\n  \"created_at\": \"2016-04-09T10:13:41.855Z\",\n  \"updated_at\": \"1953-03-06T04:45:29.359Z\",\n  \"last_event_at\": \"1989-01-03T13:42:18.794Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fb292a45-2dcf-490a-9d59-48aad51aede7",
+              "name": "Authentication credentials missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "actions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The unique numeric identifier of the resource"
+                    },
+                    {
+                      "description": "Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)",
+                      "type": "any",
+                      "value": "{{tenantDomain}}",
+                      "key": "tenantDomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"Agents::HTTPRequestAgent\",\n  \"name\": \"<string>\",\n  \"options\": \"<object>\",\n  \"position\": {\n    \"x\": \"<number>\",\n    \"y\": \"<number>\"\n  },\n  \"story_id\": \"<integer>\",\n  \"group_id\": \"<integer>\",\n  \"description\": \"<string>\",\n  \"disabled\": false,\n  \"source_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"receiver_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"monitor_failures\": \"<boolean>\",\n  \"monitor_all_events\": \"<boolean>\",\n  \"monitor_no_events_emitted\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "be15e298-e140-4f1a-8d92-88907e52b698",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "actions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The unique numeric identifier of the resource"
+                    },
+                    {
+                      "description": "Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)",
+                      "type": "any",
+                      "value": "{{tenantDomain}}",
+                      "key": "tenantDomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"Agents::HTTPRequestAgent\",\n  \"name\": \"<string>\",\n  \"options\": \"<object>\",\n  \"position\": {\n    \"x\": \"<number>\",\n    \"y\": \"<number>\"\n  },\n  \"story_id\": \"<integer>\",\n  \"group_id\": \"<integer>\",\n  \"description\": \"<string>\",\n  \"disabled\": false,\n  \"source_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"receiver_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"monitor_failures\": \"<boolean>\",\n  \"monitor_all_events\": \"<boolean>\",\n  \"monitor_no_events_emitted\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a088b015-bc85-4b24-ae53-3bbffcc76844",
+              "name": "Validation error — one or more request parameters are invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "actions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The unique numeric identifier of the resource"
+                    },
+                    {
+                      "description": "Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)",
+                      "type": "any",
+                      "value": "{{tenantDomain}}",
+                      "key": "tenantDomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"Agents::HTTPRequestAgent\",\n  \"name\": \"<string>\",\n  \"options\": \"<object>\",\n  \"position\": {\n    \"x\": \"<number>\",\n    \"y\": \"<number>\"\n  },\n  \"story_id\": \"<integer>\",\n  \"group_id\": \"<integer>\",\n  \"description\": \"<string>\",\n  \"disabled\": false,\n  \"source_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"receiver_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"monitor_failures\": \"<boolean>\",\n  \"monitor_all_events\": \"<boolean>\",\n  \"monitor_no_events_emitted\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c9fe6940-6bb7-42bf-b05a-dc0d444e6f26",
+          "name": "Delete an action",
+          "request": {
+            "name": "Delete an action",
+            "description": {
+              "content": "Deletes an action by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "actions",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The unique numeric identifier of the resource"
+                },
+                {
+                  "description": "Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)",
+                  "type": "any",
+                  "value": "{{tenantDomain}}",
+                  "key": "tenantDomain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "344bdf95-d1ad-4dbd-b0b5-0aa17a1b588c",
+              "name": "Action deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "actions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The unique numeric identifier of the resource"
+                    },
+                    {
+                      "description": "Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)",
+                      "type": "any",
+                      "value": "{{tenantDomain}}",
+                      "key": "tenantDomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a09d7c07-640f-4218-a288-44fe45b808cc",
+              "name": "Authentication credentials missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "actions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The unique numeric identifier of the resource"
+                    },
+                    {
+                      "description": "Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)",
+                      "type": "any",
+                      "value": "{{tenantDomain}}",
+                      "key": "tenantDomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1dbfcac2-25aa-4e4f-a7c9-1a97571c30c6",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "actions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The unique numeric identifier of the resource"
+                    },
+                    {
+                      "description": "Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)",
+                      "type": "any",
+                      "value": "{{tenantDomain}}",
+                      "key": "tenantDomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ebfd6978-757c-470d-bf85-cc2cf252e485",
+              "name": "Validation error — one or more request parameters are invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "actions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The unique numeric identifier of the resource"
+                    },
+                    {
+                      "description": "Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)",
+                      "type": "any",
+                      "value": "{{tenantDomain}}",
+                      "key": "tenantDomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Tines tenant domain (e.g. adjective-noun-1234.tines.com)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-tenant.tines.com",
+      "key": "tenantDomain"
+    },
+    {
+      "type": "string",
+      "value": "https://{{tenantDomain}}/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ba78f985-bdf1-423f-bbfb-3487e16d89de",
+    "name": "Tines REST Actions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Tines REST API provides programmatic access to all platform resources including stories (workflows), actions, credentials, teams, folders, cases, records, dashboards, audit logs, SCIM provisioning, AI usage tracking, reporting, tags, and the workbench. The API uses API key authentication via X-User-Token header or Bearer token and is accessed via each tenant's custom subdomain.\n\nContact Support:\n Name: Tines API Documentation",
+      "type": "text/plain"
+    }
+  }
+}
