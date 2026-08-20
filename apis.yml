@@ -29,6 +29,15 @@ specificationVersion: '0.23'
 tags:
   - Security Automation
   - No-Code
+  - Workflow-Automation
+  - Security Operations
+  - SOAR
+  - Incident Response
+  - REST API
+  - Webhook
+tags_raw:
+  - Security Automation
+  - No-Code
   - Workflow Automation
   - Security Operations
   - SOAR
@@ -163,6 +172,8 @@ apis:
   humanURL: https://www.tines.com/api/welcome/
   baseURL: https://{tenant-domain}/api/v1
   tags:
+  - Team
+  tags_raw:
   - Teams
   properties:
   - type: OpenAPI
