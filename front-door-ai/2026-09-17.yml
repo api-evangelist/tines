@@ -1,0 +1,29 @@
+# Front Door AI Index — tines — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: tines
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.tines.com
+  final_host: www.tines.com
+  ownership: own
+  owner: tines
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 16
+  host_score: 16
+  density: 31.31
+  words: 511
+  tiers:
+    agentic: 1
+    core: 14
+    model: 1
+  ambiguous: 2
+  top_terms:
+    AI: 13
+    agent: 2
+    AI agent: 1
+    Claude: 1
+    LLMs: 1

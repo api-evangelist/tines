@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Tines REST Actions Audit Logs API
+  title: Tines REST Audit Logs API
   description: The Tines REST API provides programmatic access to all platform resources including stories (workflows), actions, credentials, teams, folders, cases, records, dashboards, audit logs, SCIM provisioning, AI usage tracking, reporting, tags, and the workbench. The API uses API key authentication via X-User-Token header or Bearer token and is accessed via each tenant's custom subdomain.
   version: 1.0.0
   contact:
@@ -60,6 +60,38 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
 components:
   schemas:
+    PaginatedMeta:
+      type: object
+      properties:
+        meta:
+          type: object
+          properties:
+            current_page:
+              type: integer
+            previous_page:
+              type:
+              - integer
+              - 'null'
+            next_page:
+              type:
+              - integer
+              - 'null'
+            next_page_number:
+              type:
+              - integer
+              - 'null'
+            per_page:
+              type: integer
+            pages:
+              type: integer
+            count:
+              type: integer
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message describing the issue
     AuditLog:
       type: object
       properties:
@@ -94,36 +126,13 @@ components:
         inputs:
           type: object
           description: Parameters associated with the operation
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message describing the issue
-    PaginatedMeta:
-      type: object
-      properties:
-        meta:
-          type: object
-          properties:
-            current_page:
-              type: integer
-            previous_page:
-              type: integer
-              nullable: true
-            next_page:
-              type: integer
-              nullable: true
-            next_page_number:
-              type: integer
-              nullable: true
-            per_page:
-              type: integer
-            pages:
-              type: integer
-            count:
-              type: integer
   responses:
+    UnprocessableEntity:
+      description: Validation error — one or more request parameters are invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Authentication credentials missing or invalid
       content:
@@ -136,13 +145,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: Validation error — one or more request parameters are invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
+    Page:
+      name: page
+      in: query
+      description: Page number for pagination (default 1)
+      schema:
+        type: integer
+        default: 1
     PerPage:
       name: per_page
       in: query
@@ -151,13 +161,6 @@ components:
         type: integer
         default: 20
         maximum: 500
-    Page:
-      name: page
-      in: query
-      description: Page number for pagination (default 1)
-      schema:
-        type: integer
-        default: 1
   securitySchemes:
     BearerAuth:
       type: http
