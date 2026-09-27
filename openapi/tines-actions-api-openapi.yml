@@ -182,6 +182,12 @@ components:
               type: integer
             count:
               type: integer
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message describing the issue
     Action:
       type: object
       properties:
@@ -291,20 +297,7 @@ components:
         monitor_no_events_emitted:
           type: integer
           description: Duration in seconds before notification
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message describing the issue
   parameters:
-    ResourceId:
-      name: id
-      in: path
-      required: true
-      description: The unique numeric identifier of the resource
-      schema:
-        type: integer
     Page:
       name: page
       in: query
@@ -320,15 +313,22 @@ components:
         type: integer
         default: 20
         maximum: 500
+    ResourceId:
+      name: id
+      in: path
+      required: true
+      description: The unique numeric identifier of the resource
+      schema:
+        type: integer
   responses:
-    UnprocessableEntity:
-      description: Validation error — one or more request parameters are invalid
+    Unauthorized:
+      description: Authentication credentials missing or invalid
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials missing or invalid
+    UnprocessableEntity:
+      description: Validation error — one or more request parameters are invalid
       content:
         application/json:
           schema:

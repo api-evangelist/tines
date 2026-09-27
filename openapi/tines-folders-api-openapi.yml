@@ -200,31 +200,6 @@ components:
         error:
           type: string
           description: Error message describing the issue
-    FolderCreate:
-      type: object
-      required:
-      - name
-      - content_type
-      - team_id
-      properties:
-        name:
-          type: string
-          description: The folder name
-        content_type:
-          type: string
-          enum:
-          - CREDENTIAL
-          - RESOURCE
-          - STORY
-          description: Accepts CREDENTIAL, RESOURCE, or STORY
-        team_id:
-          type: integer
-          description: ID of team receiving the folder
-        parent_folder_id:
-          type:
-          - integer
-          - 'null'
-          description: ID of the parent folder; default null (root level)
     Folder:
       type: object
       properties:
@@ -252,14 +227,32 @@ components:
           - integer
           - 'null'
           description: ID of the parent folder, or null if at root level
+    FolderCreate:
+      type: object
+      required:
+      - name
+      - content_type
+      - team_id
+      properties:
+        name:
+          type: string
+          description: The folder name
+        content_type:
+          type: string
+          enum:
+          - CREDENTIAL
+          - RESOURCE
+          - STORY
+          description: Accepts CREDENTIAL, RESOURCE, or STORY
+        team_id:
+          type: integer
+          description: ID of team receiving the folder
+        parent_folder_id:
+          type:
+          - integer
+          - 'null'
+          description: ID of the parent folder; default null (root level)
   parameters:
-    ResourceId:
-      name: id
-      in: path
-      required: true
-      description: The unique numeric identifier of the resource
-      schema:
-        type: integer
     Page:
       name: page
       in: query
@@ -275,15 +268,22 @@ components:
         type: integer
         default: 20
         maximum: 500
+    ResourceId:
+      name: id
+      in: path
+      required: true
+      description: The unique numeric identifier of the resource
+      schema:
+        type: integer
   responses:
-    UnprocessableEntity:
-      description: Validation error — one or more request parameters are invalid
+    Unauthorized:
+      description: Authentication credentials missing or invalid
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials missing or invalid
+    UnprocessableEntity:
+      description: Validation error — one or more request parameters are invalid
       content:
         application/json:
           schema:

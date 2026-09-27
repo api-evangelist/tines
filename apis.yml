@@ -42,7 +42,7 @@ specificationVersion: '0.23'
 tags:
   - Security Automation
   - No-Code
-  - Workflow-Automation
+  - Workflow Automation
   - Security Operations
   - SOAR
   - Incident Response
@@ -57,6 +57,7 @@ tags_raw:
   - Incident Response
   - REST API
   - Webhooks
+  - Workflow-Automation
 
 apis:
 - aid: tines:tines-actions-api
