@@ -1,9 +1,20 @@
-generated: '2026-10-13'
+generated: '2026-10-20'
 method: searched
+source:
+- https://github.com/marketplace?type=apps
+- https://zapier.com/apps/tines/integrations
+- https://n8n.io/integrations/tines/
+- https://composio.dev/toolkits/tines
+- https://monid.ai/tools/tines
 checked:
 - https://aws.amazon.com/marketplace/
 - https://github.com/marketplace?type=apps
 - slack/integrations/slack-integration-edges.yml
+- https://composio.dev/toolkits/tines
+- https://monid.ai/tools/tines
+- https://n8n.io/integrations/tines/
+- https://zapier.com/apps/tines/integrations
+summary: null
 marketplace_apps: []
 edges:
 - partner_name: AWS Marketplace
@@ -39,5 +50,4 @@ edges:
   detected: '2026-10-18'
   detected_by: mirror-platform-listings.py
   category: Slack app
-source:
-- https://github.com/marketplace?type=apps
+templates: []
