@@ -82,3 +82,15 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: tines-github-own
+  label: GitHub (own)
+  partner: github
+  partner_name: GitHub (own)
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://github.com/marketplace/tines
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
